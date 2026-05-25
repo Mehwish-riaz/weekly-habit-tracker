@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { useHabits } from '../context/HabitContext';
 import ConfirmDialog from './ConfirmDialog';
+import { getWeekDates, formatDateKey, isToday } from '../utils/dates';
 
-const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 function DesktopTable() {
-  const { habits, renameHabit, deleteHabit } = useHabits();
+  const { habits, toggleCompletion, renameHabit, deleteHabit } = useHabits();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
   const [deleteId, setDeleteId] = useState<string | null>(null);
+
+  const weekDates = getWeekDates();
+  const dateKeys = weekDates.map(formatDateKey);
 
   const startEditing = (habit: { id: string; name: string }) => {
     setEditingId(habit.id);
@@ -44,14 +48,22 @@ function DesktopTable() {
               <th className="text-left py-4 px-5 text-text-muted text-xs font-semibold uppercase tracking-widest w-44 border-b border-abyss-border">
                 Habit
               </th>
-              {days.map((day) => (
-                <th
-                  key={day}
-                  className="py-4 px-3 text-center text-text-muted text-xs font-semibold uppercase tracking-widest border-b border-abyss-border"
-                >
-                  {day}
-                </th>
-              ))}
+              {weekDates.map((date, i) => {
+                const today = isToday(date);
+                return (
+                  <th
+                    key={dateKeys[i]}
+                    className={`py-4 px-3 text-center text-xs font-semibold uppercase tracking-widest border-b border-abyss-border ${
+                      today ? 'text-neon-cyan' : 'text-text-muted'
+                    }`}
+                  >
+                    <div>{DAY_NAMES[i]}</div>
+                    <div className={`mt-0.5 ${today ? 'text-neon-cyan/80' : 'text-text-muted/50'}`}>
+                      {date.getDate()}
+                    </div>
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
@@ -124,13 +136,31 @@ function DesktopTable() {
                       </button>
                     </div>
                   </td>
-                  {days.map((day) => (
-                    <td key={day} className="py-3 px-3 text-center">
-                      <div className="size-8 rounded-lg bg-abyss-card mx-auto flex items-center justify-center">
-                        <div className="size-4 rounded-sm border border-abyss-border" />
-                      </div>
-                    </td>
-                  ))}
+                  {weekDates.map((date, i) => {
+                    const completed = !!habit.completions[dateKeys[i]];
+                    const today = isToday(date);
+                    return (
+                      <td key={dateKeys[i]} className="py-3 px-3 text-center">
+                        <button
+                          type="button"
+                          onClick={() => toggleCompletion(habit.id, dateKeys[i])}
+                          className={`size-8 rounded-lg mx-auto flex items-center justify-center transition-all duration-200 cursor-pointer ${
+                            completed
+                              ? 'bg-neon-cyan/20 glow-cyan-sm'
+                              : 'bg-abyss-card hover:bg-abyss-card-hover'
+                          } ${today ? 'ring-1 ring-neon-cyan/30' : ''}`}
+                        >
+                          {completed ? (
+                            <svg className="size-4 text-neon-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          ) : (
+                            <div className="size-4 rounded-sm border border-abyss-border" />
+                          )}
+                        </button>
+                      </td>
+                    );
+                  })}
                 </tr>
               ))
             )}
