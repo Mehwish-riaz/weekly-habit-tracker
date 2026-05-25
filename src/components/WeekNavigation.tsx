@@ -1,6 +1,6 @@
 function WeekNavigation() {
   return (
-    <div className="glass rounded-2xl px-5 py-3 flex items-center justify-between">
+    <div className="glass rounded-2xl px-5 py-3 flex items-center justify-between card-depth">
       <button
         type="button"
         className="size-9 rounded-xl bg-abyss-card hover:bg-abyss-card-hover text-text-secondary hover:text-text-primary flex items-center justify-center transition-all duration-200 cursor-pointer"
