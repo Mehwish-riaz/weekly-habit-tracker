@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { useHabits } from '../context/HabitContext';
 import ConfirmDialog from './ConfirmDialog';
+import { getWeekDates, formatDateKey, isToday } from '../utils/dates';
 
-const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+const DAY_NAMES = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
 function MobileCards() {
-  const { habits, renameHabit, deleteHabit } = useHabits();
+  const { habits, toggleCompletion, renameHabit, deleteHabit } = useHabits();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
   const [deleteId, setDeleteId] = useState<string | null>(null);
+
+  const weekDates = getWeekDates();
+  const dateKeys = weekDates.map(formatDateKey);
 
   const startEditing = (habit: { id: string; name: string }) => {
     setEditingId(habit.id);
@@ -84,7 +88,7 @@ function MobileCards() {
                   <button
                     type="button"
                     onClick={() => startEditing(habit)}
-                    className="size-7 rounded-lg bg-abyss-card hover:bg-neon-cyan/15 text-text-muted hover:text-neon-cyan flex items-center justify-center transition-all duration-200 shrink-0 cursor-pointer"
+                    className="size-7 rounded-lg bg-abyss-card-hover hover:bg-neon-cyan/20 text-text-secondary hover:text-neon-cyan flex items-center justify-center transition-all duration-200 shrink-0 cursor-pointer"
                     title="Rename habit"
                   >
                     <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -97,7 +101,7 @@ function MobileCards() {
               <button
                 type="button"
                 onClick={() => setDeleteId(habit.id)}
-                className="size-8 rounded-xl bg-abyss-card hover:bg-red-500/20 text-text-muted hover:text-red-400 flex items-center justify-center transition-all duration-200 shrink-0 cursor-pointer"
+                className="size-8 rounded-xl bg-abyss-card-hover hover:bg-red-500/20 text-text-secondary hover:text-red-400 flex items-center justify-center transition-all duration-200 shrink-0 cursor-pointer"
                 title="Delete habit"
               >
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -108,14 +112,36 @@ function MobileCards() {
             </div>
 
             <div className="mt-4 grid grid-cols-7 gap-2 max-w-xs mx-auto">
-              {days.map((day, i) => (
-                <div key={i} className="flex flex-col items-center gap-2">
-                  <span className="text-xs text-text-muted/50 font-medium">{day}</span>
-                  <div className="size-8 rounded-lg bg-abyss-card flex items-center justify-center">
-                    <div className="size-3 rounded-sm border border-abyss-border" />
+              {weekDates.map((date, i) => {
+                const completed = !!habit.completions[dateKeys[i]];
+                const today = isToday(date);
+                return (
+                  <div key={dateKeys[i]} className="flex flex-col items-center gap-2">
+                    <span className={`text-xs font-medium ${
+                      today ? 'text-neon-cyan' : 'text-text-muted/50'
+                    }`}>
+                      {DAY_NAMES[i]}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => toggleCompletion(habit.id, dateKeys[i])}
+                      className={`size-8 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${
+                        completed
+                          ? 'bg-neon-cyan/20 glow-cyan-sm'
+                          : 'bg-abyss-card hover:bg-abyss-card-hover'
+                      } ${today ? 'ring-1 ring-neon-cyan/30' : ''}`}
+                    >
+                      {completed ? (
+                        <svg className="size-4 text-neon-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      ) : (
+                        <div className="size-3 rounded-sm border border-abyss-border" />
+                      )}
+                    </button>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         ))}

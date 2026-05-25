@@ -8,6 +8,7 @@ interface HabitContextType {
   addHabit: (name: string) => void;
   renameHabit: (id: string, name: string) => void;
   deleteHabit: (id: string) => void;
+  toggleCompletion: (habitId: string, dateKey: string) => void;
 }
 
 const HabitContext = createContext<HabitContextType | null>(null);
@@ -24,6 +25,7 @@ export function HabitProvider({ children }: { children: ReactNode }) {
       id: generateId(),
       name: name.trim(),
       createdAt: new Date().toISOString(),
+      completions: {},
     };
     setHabits((prev) => [...prev, habit]);
   };
@@ -38,8 +40,23 @@ export function HabitProvider({ children }: { children: ReactNode }) {
     setHabits((prev) => prev.filter((h) => h.id !== id));
   };
 
+  const toggleCompletion = (habitId: string, dateKey: string) => {
+    setHabits((prev) =>
+      prev.map((h) => {
+        if (h.id !== habitId) return h;
+        const completions = { ...h.completions };
+        if (completions[dateKey]) {
+          delete completions[dateKey];
+        } else {
+          completions[dateKey] = true;
+        }
+        return { ...h, completions };
+      }),
+    );
+  };
+
   return (
-    <HabitContext.Provider value={{ habits, addHabit, renameHabit, deleteHabit }}>
+    <HabitContext.Provider value={{ habits, addHabit, renameHabit, deleteHabit, toggleCompletion }}>
       {children}
     </HabitContext.Provider>
   );
