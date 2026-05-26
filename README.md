@@ -1,36 +1,70 @@
-# HabitTracker — Weekly Habit Tracker
+# 🗓️ Weekly Habit Tracker
 
-A polished single-page habit tracking app built with React, TypeScript, and Tailwind CSS v4. Features a weekly grid view (desktop table / mobile cards) with streak tracking, week navigation, and full CRUD for habits. Designed for the Frontend Assessment with emphasis on UI polish, responsive layout, and production-quality code.
+A production-style, responsive habit tracking application built with **React, TypeScript, and Tailwind CSS**.
 
-## Tech Stack
+It allows users to manage daily habits through a **weekly grid interface**, track **current streaks**, navigate across weeks, and maintain full progress history — all persisted locally using `localStorage` with no backend dependency.
 
-- **React 19** — UI library
-- **TypeScript ~6.0** — type safety
-- **Tailwind CSS v4** — utility-first styling with custom `@theme` tokens and `@utility` patterns
-- **Vite 8** — fast dev server and build tool
-- **localStorage** — client-side persistence (no backend)
+---
 
-## How to Run
+##  Live Demo
+
+ https://weekly-habit-tracker-vert.vercel.app/
+
+---
+
+##  Key Features
+
+###  Weekly Grid Tracking
+A structured weekly view where habits are displayed vertically and days horizontally.  
+- Desktop: full table-based grid for fast scanning  
+- Mobile: responsive stacked cards for usability on small screens  
+
+###  Streak System
+Each habit maintains a **current streak counter**, automatically calculated based on consecutive completions.
+
+###  Week Navigation
+Users can move between past and future weeks while preserving historical completion data.
+
+###  Full Habit Management
+Complete CRUD support:
+- Create new habits
+- Rename existing habits
+- Delete habits with confirmation
+- Toggle daily completion status
+
+###  Persistent Storage
+All user data is stored in `localStorage`, ensuring:
+- No data loss on refresh
+- Instant state restoration
+
+---
+
+##  Tech Stack
+
+- **React** — Component-based UI architecture  
+- **TypeScript** — Type-safe development  
+- **Tailwind CSS** — Utility-first styling with custom theme design  
+- **Vite** — Fast bundler and dev server  
+- **localStorage** — Client-side persistence layer  
+
+---
+
+##  Getting Started
+
+Clone the repository and install dependencies:
 
 ```bash
 npm install
 npm run dev
-```
 
-Open the URL shown in the terminal (default `http://localhost:5173`).
+Open the URL shown in the terminal (default http://localhost:5173).
 
-## Build for Production
+ ##  Production Build
 
-```bash
+bash
 npm run build
 npm run preview
-```
+Output is served from the dist directory.
 
-## Deployment
+---
 
-[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start)
-
-1. Push this repo to GitHub/GitLab.
-2. Connect your repository on Vercel or Netlify.
-3. Use `npm run build` as the build command and `dist` as the output directory.

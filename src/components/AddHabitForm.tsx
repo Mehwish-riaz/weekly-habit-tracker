@@ -34,7 +34,7 @@ function AddHabitForm() {
       <button
         type="button"
         onClick={handleSubmit}
-        className="px-5 py-2.5 mr-1 rounded-xl bg-gradient-to-r from-neon-cyan/20 to-neon-blue/20 text-neon-cyan text-sm font-semibold transition-all duration-300 hover:from-neon-cyan/30 hover:to-neon-blue/30 hover:glow-cyan active:scale-95 cursor-pointer"
+        className="px-5 py-2.5 mr-1 rounded-xl bg-gradient-to-r from-neon-cyan/20 to-neon-emerald/20 text-neon-cyan text-sm font-semibold transition-all duration-200 hover:from-neon-cyan/30 hover:to-neon-emerald/30 hover:glow-cyan active:scale-95 cursor-pointer"
       >
         Add
       </button>

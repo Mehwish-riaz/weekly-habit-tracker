@@ -10,46 +10,42 @@
   --color-neon-cyan: #00f0ff;
   --color-neon-blue: #3b82f6;
   --color-neon-purple: #a855f7;
+  --color-neon-emerald: #34d399;
+  --color-neon-violet: #a78bfa;
+  --color-neon-amber: #fbbf24;
   --color-text-primary: #ffffff;
   --color-text-secondary: rgba(255, 255, 255, 0.7);
   --color-text-muted: rgba(255, 255, 255, 0.4);
+  --color-text-label: rgba(148, 163, 184, 0.65);
 }
 
 @utility glass {
   background: linear-gradient(
     145deg,
-    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.06),
     rgba(255, 255, 255, 0.02)
   );
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
-  border: 1px solid rgba(0, 240, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 240, 255, 0.08);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-    0 0 40px rgba(0, 0, 0, 0.15) inset;
-  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 0 30px rgba(0, 0, 0, 0.2) inset,
+    0 4px 24px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
 }
 
 @utility glass-hover {
   background: linear-gradient(
     145deg,
-    rgba(255, 255, 255, 0.12),
-    rgba(255, 255, 255, 0.05)
+    rgba(255, 255, 255, 0.10),
+    rgba(255, 255, 255, 0.04)
   );
-  border-color: rgba(0, 240, 255, 0.15);
+  border-color: rgba(0, 240, 255, 0.2);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(0, 240, 255, 0.05) inset,
-    0 0 60px rgba(0, 240, 255, 0.03) inset;
-}
-
-@utility glass-hover {
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.12),
-    rgba(255, 255, 255, 0.05)
-  );
-  border-color: rgba(255, 255, 255, 0.12);
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(0, 240, 255, 0.06) inset,
+    0 0 50px rgba(0, 240, 255, 0.03) inset;
 }
 
 @utility glow-cyan {
@@ -74,7 +70,19 @@
 }
 
 @utility glow-cyan-sm {
-  box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+@utility glow-emerald-sm {
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.3);
+}
+
+@utility glow-violet-sm {
+  box-shadow: 0 0 16px rgba(167, 139, 250, 0.3);
+}
+
+@utility glow-amber-sm {
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.3);
 }
 
 @utility neon-border {
@@ -89,29 +97,31 @@
 }
 
 @utility hover-lift {
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
 }
 .hover-lift:hover {
   transform: translateY(-2px);
   box-shadow:
     0 16px 48px rgba(0, 0, 0, 0.5),
     0 4px 16px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(0, 240, 255, 0.08) inset;
+    0 0 0 1px rgba(0, 240, 255, 0.08) inset,
+    0 0 60px rgba(0, 240, 255, 0.02);
 }
 
 body {
   margin: 0;
   position: relative;
   background:
-    radial-gradient(ellipse 85% 50% at 50% -22%, rgba(0, 240, 255, 0.13), transparent 60%),
-    radial-gradient(ellipse 65% 40% at 75% 75%, rgba(168, 85, 247, 0.09), transparent 55%),
-    radial-gradient(ellipse 55% 35% at 25% 65%, rgba(59, 130, 246, 0.07), transparent 50%),
-    radial-gradient(ellipse 120% 35% at 50% 105%, rgba(0, 240, 255, 0.04), transparent 60%),
-    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0, 0, 0, 0.15), transparent),
+    radial-gradient(ellipse 80% 45% at 50% -25%, rgba(0, 240, 255, 0.10), transparent 60%),
+    radial-gradient(ellipse 50% 30% at 20% 80%, rgba(52, 211, 153, 0.06), transparent 50%),
+    radial-gradient(ellipse 45% 35% at 80% 50%, rgba(167, 139, 250, 0.07), transparent 48%),
+    radial-gradient(ellipse 35% 25% at 70% 95%, rgba(251, 191, 36, 0.03), transparent 45%),
+    radial-gradient(ellipse 40% 30% at 25% 40%, rgba(59, 130, 246, 0.05), transparent 50%),
+    radial-gradient(ellipse 100% 30% at 50% 100%, rgba(0, 0, 0, 0.2), transparent),
     var(--color-abyss);
   background-attachment: fixed;
-  background-size: 150% 150%;
-  animation: bg-shift 30s ease-in-out infinite alternate;
+  background-size: 200% 200%;
+  animation: aurora-flow 45s ease-in-out infinite alternate;
   color: var(--color-text-secondary);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -125,22 +135,26 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(ellipse 35% 30% at 25% 20%, rgba(0, 15, 60, 0.5), transparent 55%),
-    radial-gradient(ellipse 30% 30% at 75% 75%, rgba(0, 240, 255, 0.035), transparent 50%),
-    radial-gradient(ellipse 25% 25% at 50% 50%, rgba(59, 130, 246, 0.025), transparent 45%);
-  animation: ambient-glow 25s ease-in-out infinite alternate;
+    radial-gradient(ellipse 35% 25% at 20% 30%, rgba(52, 211, 153, 0.04), transparent 50%),
+    radial-gradient(ellipse 30% 25% at 75% 60%, rgba(167, 139, 250, 0.035), transparent 48%),
+    radial-gradient(ellipse 40% 30% at 50% 20%, rgba(0, 240, 255, 0.03), transparent 50%),
+    radial-gradient(ellipse 25% 20% at 40% 80%, rgba(251, 191, 36, 0.02), transparent 40%);
+  animation: aurora-drift 35s ease-in-out infinite alternate;
 }
 
-@keyframes bg-shift {
+@keyframes aurora-flow {
   0% { background-position: 0% 0%; }
-  100% { background-position: 100% 100%; }
+  25% { background-position: 40% 10%; }
+  50% { background-position: 100% 20%; }
+  75% { background-position: 60% 5%; }
+  100% { background-position: 20% 15%; }
 }
 
-@keyframes ambient-glow {
-  0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
-  33% { transform: translate(2%, -3%) scale(1.08); opacity: 1; }
-  66% { transform: translate(-1.5%, 2%) scale(0.92); opacity: 0.7; }
-  100% { transform: translate(1%, -1.5%) scale(1.04); opacity: 0.85; }
+@keyframes aurora-drift {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+  33% { transform: translate(3%, -4%) scale(1.12); opacity: 0.85; }
+  66% { transform: translate(-2%, 3%) scale(0.88); opacity: 0.55; }
+  100% { transform: translate(1.5%, -1.5%) scale(1.06); opacity: 0.7; }
 }
 
 @keyframes fade-in {
@@ -195,8 +209,8 @@ body::before {
 
 /* Checkbox press feedback + pulse ring */
 @keyframes check-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.5); }
-  70% { box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.6); }
+  70% { box-shadow: 0 0 0 14px rgba(0, 240, 255, 0); }
   100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
 }
 
@@ -213,15 +227,15 @@ body::before {
 
 /* Table row hover enhancement */
 table tbody tr {
-  transition: background-color 0.35s ease;
+  transition: background-color 0.2s ease;
 }
 table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(0, 240, 255, 0.03);
 }
 
 /* Weekend column subtle distinction */
 td.bg-white\/\[0\.01\] {
-  background: rgba(255, 255, 255, 0.018) !important;
+  background: rgba(0, 240, 255, 0.015) !important;
 }
 
 /* Focus visible states for accessibility */

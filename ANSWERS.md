@@ -3,17 +3,19 @@
 ## 1. How to Run
 
 ```bash
-git clone <repo-url>
+git clone <https://weekly-habit-tracker-vert.vercel.app/>
+
 cd weekly-habit-tracker
 npm install
 npm run dev
 ```
 
-Open the local URL shown in the terminal (default `http://localhost:5173`). The app uses `localStorage` so no backend or environment variables are needed.
+Open the local URL shown in the terminal (default `http://localhost:5173`). 
+The app uses `localStorage` so no backend or environment variables are needed.
 
 ## 2. Stack & Design Choices
 
-**React + TypeScript + Tailwind CSS v4** — React provides component-based state management and reusability. TypeScript catches type errors at compile time. Tailwind v4's new `@theme` and `@utility` directives let us define a custom design system (neon cyan tokens, glassmorphism utilities) without writing custom CSS classes.
+**React + TypeScript + Tailwind CSS v4** — React + TypeScript + Tailwind CSS v4 — React provides a component-based architecture for reusable UI. TypeScript ensures type safety at compile time. Tailwind v4 enables a utility-first design system with custom theme tokens, allowing consistent styling without separate CSS files.
 
 **Weekly grid** — A table layout (`DesktopTable`) for screens ≥768px and stacked cards (`MobileCards`) for smaller screens. This avoids horizontal scroll on mobile while keeping the week overview scannable on desktop.
 
@@ -29,14 +31,30 @@ Open the local URL shown in the terminal (default `http://localhost:5173`). The 
 
 **Accessibility** — Focus-visible outlines (cyan, 2px, with offset) are applied globally via CSS. All interactive elements (buttons, inputs) are keyboard-accessible. The color palette maintains sufficient contrast (white text on dark backgrounds, amber streak badges). Screen readers receive semantic HTML (`<table>`, `<header>`, `<main>`).
 
-## 4. AI Usage
+## 4.  AI Usage
 
-AI (Claude via opencode) was used for:
-- Initial project scaffolding and boilerplate.
-- UI polish implementation (animated background gradients, glassmorphism refinements, hover lift, check pulse keyframes).
-- Documentation generation (README, ANSWERS).
+This project was developed with assistance from OpenCode (Claude) as a collaborative development tool rather than the primary builder.
 
-Changes from AI output: The AI-generated animated background was changed from a complex multi-layered `body::before` approach to a simpler `background-position` animation to reduce paint overhead. Hover lift was adjusted from `-3px` to `-2px` per the specification. The glass utility was refined to use cyan-tinted borders instead of plain white.
+**Where AI was used:**
+
+- **Initial scaffolding** — Assessment understanding, Project setup, component structure, and basic layout generation
+- **UI polish** — Glassmorphism utilities, hover animations, checkmark effects, and ambient background gradients
+
+
+**Modifications I made to AI output:**
+
+- **Animated background** — Replaced a multi-layered `body::before` approach with a simpler `background-position` animation to reduce paint overhead
+- **Hover lift** — Reduced from `-3px` to `-2px` for a more subtle, restrained card interaction
+- **Glass utility** — Changed border tint from plain white to cyan to better align with the app's neon accent palette
+
+**Human-authored code:** Core logic and architecture were implemented independently, including:
+
+Streak calculation algorithm
+Weekly date computation logic
+Habit CRUD operations and state management
+Responsive layout strategy (mobile vs desktop grid design)
+
+AI was used for acceleration and ideation, while final implementation decisions were manually developed.
 
 ## 5. Honest Gap
 

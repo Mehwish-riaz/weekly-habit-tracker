@@ -144,7 +144,7 @@ function DesktopTable() {
                     {(() => {
                       const s = computeStreak(habit.completions);
                       return s > 0 ? (
-                        <span className="text-xs font-bold text-amber-400 tabular-nums">{s}</span>
+                        <span className="text-xs font-bold text-neon-amber tabular-nums">{s}</span>
                       ) : (
                         <span className="text-text-muted/30 text-xs">—</span>
                       );
@@ -163,7 +163,7 @@ function DesktopTable() {
                             completed
                               ? 'bg-neon-cyan/20 glow-cyan-sm hover:bg-neon-cyan/30'
                               : 'bg-abyss-card hover:bg-abyss-card-hover hover:border-neon-cyan/30'
-                          } ${today ? 'ring-1 ring-neon-cyan/30' : 'border border-transparent'}`}
+                          } ${today ? 'ring-2 ring-neon-cyan/40 shadow-[0_0_12px_rgba(0,240,255,0.15)]' : 'border border-transparent'}`}
                         >
                           {completed ? (
                             <svg className="size-4 text-neon-cyan animate-check-pop" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">

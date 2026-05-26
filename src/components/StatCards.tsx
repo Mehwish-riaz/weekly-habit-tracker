@@ -90,7 +90,7 @@ function StatCards() {
             {stat.progressValue !== undefined && (
               <div className="mt-3 h-1 rounded-full bg-abyss-card overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-neon-cyan/70 to-neon-blue/70 transition-all duration-700 ease-out"
+                  className="h-full rounded-full bg-gradient-to-r from-neon-emerald/70 to-neon-cyan/70 transition-all duration-700 ease-out"
                   style={{ width: `${stat.progressValue}%` }}
                 />
               </div>

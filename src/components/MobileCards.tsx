@@ -100,7 +100,7 @@ function MobileCards() {
                   {(() => {
                     const s = computeStreak(habit.completions);
                     return s > 0 ? (
-                      <span className="text-xs font-bold text-amber-400 tabular-nums ml-auto">{s}</span>
+                      <span className="text-xs font-bold text-neon-amber tabular-nums ml-auto">{s}</span>
                     ) : null;
                   })()}
                 </div>
