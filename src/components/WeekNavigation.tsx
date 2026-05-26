@@ -24,7 +24,7 @@ function WeekNavigation() {
           <button
             type="button"
             onClick={goToCurrentWeek}
-            className="text-xs text-neon-cyan font-semibold hover:text-neon-cyan/80 transition-colors cursor-pointer mr-1 glow-cyan-sm-hover rounded-lg px-2 py-1"
+            className="text-xs text-neon-cyan font-semibold hover:text-neon-cyan/80 transition-colors cursor-pointer mr-1 rounded-lg px-2 py-1"
           >
             Today
           </button>

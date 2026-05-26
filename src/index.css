@@ -23,10 +23,24 @@
   );
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 240, 255, 0.06);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.03) inset,
     0 0 40px rgba(0, 0, 0, 0.15) inset;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+@utility glass-hover {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-color: rgba(0, 240, 255, 0.15);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 240, 255, 0.05) inset,
+    0 0 60px rgba(0, 240, 255, 0.03) inset;
 }
 
 @utility glass-hover {
@@ -75,27 +89,58 @@
 }
 
 @utility hover-lift {
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .hover-lift:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(0, 240, 255, 0.08) inset;
 }
 
 body {
   margin: 0;
+  position: relative;
   background:
     radial-gradient(ellipse 85% 50% at 50% -22%, rgba(0, 240, 255, 0.13), transparent 60%),
     radial-gradient(ellipse 65% 40% at 75% 75%, rgba(168, 85, 247, 0.09), transparent 55%),
     radial-gradient(ellipse 55% 35% at 25% 65%, rgba(59, 130, 246, 0.07), transparent 50%),
     radial-gradient(ellipse 120% 35% at 50% 105%, rgba(0, 240, 255, 0.04), transparent 60%),
-    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0, 0, 0, 0.2), transparent),
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0, 0, 0, 0.15), transparent),
     var(--color-abyss);
   background-attachment: fixed;
-  background-size: 100% 100%;
+  background-size: 150% 150%;
+  animation: bg-shift 30s ease-in-out infinite alternate;
   color: var(--color-text-secondary);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 35% 30% at 25% 20%, rgba(0, 15, 60, 0.5), transparent 55%),
+    radial-gradient(ellipse 30% 30% at 75% 75%, rgba(0, 240, 255, 0.035), transparent 50%),
+    radial-gradient(ellipse 25% 25% at 50% 50%, rgba(59, 130, 246, 0.025), transparent 45%);
+  animation: ambient-glow 25s ease-in-out infinite alternate;
+}
+
+@keyframes bg-shift {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+@keyframes ambient-glow {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  33% { transform: translate(2%, -3%) scale(1.08); opacity: 1; }
+  66% { transform: translate(-1.5%, 2%) scale(0.92); opacity: 0.7; }
+  100% { transform: translate(1%, -1.5%) scale(1.04); opacity: 0.85; }
 }
 
 @keyframes fade-in {
@@ -148,9 +193,42 @@ body {
   100% { background-position: 200% 0; }
 }
 
-/* Checkbox press feedback */
+/* Checkbox press feedback + pulse ring */
+@keyframes check-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+}
+
 .check-btn:active {
   transform: scale(0.88) !important;
+  animation: check-pulse 0.45s ease-out !important;
+}
+
+/* Ensure root wrapper sits above body decorations */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Table row hover enhancement */
+table tbody tr {
+  transition: background-color 0.35s ease;
+}
+table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+/* Weekend column subtle distinction */
+td.bg-white\/\[0\.01\] {
+  background: rgba(255, 255, 255, 0.018) !important;
+}
+
+/* Focus visible states for accessibility */
+*:focus-visible {
+  outline: 2px solid rgba(0, 240, 255, 0.5);
+  outline-offset: 2px;
+  border-radius: 8px;
 }
 
 /* Scrollbar styling */
