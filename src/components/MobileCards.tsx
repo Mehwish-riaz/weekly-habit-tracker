@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { useHabits } from '../context/HabitContext';
 import ConfirmDialog from './ConfirmDialog';
-import { getWeekDates, formatDateKey, isToday } from '../utils/dates';
+import { getWeekDates, formatDateKey, isToday, computeStreak } from '../utils/dates';
 
 const DAY_NAMES = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
 function MobileCards() {
-  const { habits, toggleCompletion, renameHabit, deleteHabit } = useHabits();
+  const { habits, weekOffset, toggleCompletion, renameHabit, deleteHabit } = useHabits();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const weekDates = getWeekDates();
+  const weekDates = getWeekDates(weekOffset);
   const dateKeys = weekDates.map(formatDateKey);
 
   const startEditing = (habit: { id: string; name: string }) => {
@@ -60,7 +60,8 @@ function MobileCards() {
     <>
       <div className="space-y-4">
         {habits.map((habit) => (
-          <div key={habit.id} className="glass rounded-2xl p-4 animate-fade-in card-depth">
+          <div key={habit.id} className="glass rounded-2xl p-4 animate-fade-in card-depth relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon-cyan/15 to-transparent pointer-events-none" />
             <div className="flex items-center justify-between gap-2">
               {editingId === habit.id ? (
                 <input
@@ -96,6 +97,12 @@ function MobileCards() {
                       <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
                     </svg>
                   </button>
+                  {(() => {
+                    const s = computeStreak(habit.completions);
+                    return s > 0 ? (
+                      <span className="text-xs font-bold text-amber-400 tabular-nums ml-auto">{s}</span>
+                    ) : null;
+                  })()}
                 </div>
               )}
               <button
@@ -111,12 +118,12 @@ function MobileCards() {
               </button>
             </div>
 
-            <div className="mt-4 grid grid-cols-7 gap-2 max-w-xs mx-auto">
+            <div className="mt-4 grid grid-cols-7 gap-1 max-w-xs mx-auto">
               {weekDates.map((date, i) => {
                 const completed = !!habit.completions[dateKeys[i]];
                 const today = isToday(date);
                 return (
-                  <div key={dateKeys[i]} className="flex flex-col items-center gap-2">
+                  <div key={dateKeys[i]} className="flex flex-col items-center gap-1">
                     <span className={`text-xs font-medium ${
                       today ? 'text-neon-cyan' : 'text-text-muted/50'
                     }`}>
@@ -125,18 +132,18 @@ function MobileCards() {
                     <button
                       type="button"
                       onClick={() => toggleCompletion(habit.id, dateKeys[i])}
-                      className={`size-8 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${
+                      className={`check-btn size-9 rounded-xl flex items-center justify-center transition-all duration-300 cursor-pointer group ${
                         completed
-                          ? 'bg-neon-cyan/20 glow-cyan-sm'
-                          : 'bg-abyss-card hover:bg-abyss-card-hover'
-                      } ${today ? 'ring-1 ring-neon-cyan/30' : ''}`}
+                          ? 'bg-neon-cyan/20 glow-cyan-sm hover:bg-neon-cyan/30'
+                          : 'bg-abyss-card hover:bg-abyss-card-hover hover:border-neon-cyan/30'
+                      } ${today ? 'ring-1 ring-neon-cyan/30' : 'border border-transparent'}`}
                     >
                       {completed ? (
-                        <svg className="size-4 text-neon-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <svg className="size-4 text-neon-cyan animate-check-pop" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
                       ) : (
-                        <div className="size-3 rounded-sm border border-abyss-border" />
+                        <div className="size-[18px] rounded-md border border-abyss-border group-hover:border-neon-cyan/40 transition-colors duration-300" />
                       )}
                     </button>
                   </div>

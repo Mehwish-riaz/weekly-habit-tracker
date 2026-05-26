@@ -13,7 +13,7 @@ function AddHabitForm() {
   };
 
   return (
-    <div className="glass rounded-2xl p-1 flex items-center gap-2 transition-all duration-300 focus-within:border-neon-cyan/40 focus-within:glow-cyan-sm card-depth">
+    <div className="glass rounded-2xl p-1 flex items-center gap-2 transition-all duration-300 focus-within:border-neon-cyan/40 focus-within:glow-cyan card-depth">
       <div className="pl-4 text-text-muted">
         <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10" />
@@ -34,7 +34,7 @@ function AddHabitForm() {
       <button
         type="button"
         onClick={handleSubmit}
-        className="px-5 py-2.5 mr-1 rounded-xl bg-neon-cyan/20 text-neon-cyan text-sm font-semibold transition-all duration-300 hover:bg-neon-cyan/30 hover:glow-cyan-sm active:scale-95 cursor-pointer"
+        className="px-5 py-2.5 mr-1 rounded-xl bg-gradient-to-r from-neon-cyan/20 to-neon-blue/20 text-neon-cyan text-sm font-semibold transition-all duration-300 hover:from-neon-cyan/30 hover:to-neon-blue/30 hover:glow-cyan active:scale-95 cursor-pointer"
       >
         Add
       </button>
