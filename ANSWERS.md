@@ -33,7 +33,7 @@ The app uses `localStorage` so no backend or environment variables are needed.
 
 ## 4.  AI Usage
 
-This project was developed with assistance from OpenCode (Claude) as a collaborative development tool rather than the primary builder.
+This project was developed with assistance from OpenCode  as a collaborative development tool rather than the primary builder.
 
 **Where AI was used:**
 
