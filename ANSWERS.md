@@ -3,7 +3,7 @@
 ## 1. How to Run
 
 ```bash
-git clone <https://weekly-habit-tracker-vert.vercel.app/>
+git clone https://github.com/Mehwish-riaz/weekly-habit-tracker.git
 
 cd weekly-habit-tracker
 npm install
